@@ -1,1 +1,1 @@
-Status: Parei na página 22 capitulo 3, models. Começar criando models categoria 
+Status: Parei na página 6 capitulo 6, request.GET passados na url . Começar conferindo a views de produtos que é o foco desse capitulo.
