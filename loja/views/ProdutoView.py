@@ -3,6 +3,7 @@ from loja.models import Produto, Fabricante, Categoria
 from datetime import timedelta, datetime
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
+from django.contrib.auth.decorators import login_required
 
 # os produtos vão rodar e aparecer no terminal quando você acessar a página e não quando da run com o python file!!!!
 
@@ -42,6 +43,7 @@ def list_produto_view(request, id=None):
     }
     return render(request, template_name='produto/produto.html', context=context, status=200)
 
+@login_required
 def edit_produto_view(request, id=None):
     produtos = Produto.objects.all()
     fabricantes = Fabricante.objects.all()

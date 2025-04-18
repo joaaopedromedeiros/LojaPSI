@@ -25,11 +25,14 @@
             fa-book"></i> Fabricante</a></li>
             <li class="nav-item"><a class="nav-link" href="/produto"><i class="fa
             fa-book"></i> Produto</a></li>
+            {% if user.is_authenticated %}
             <li class="nav-item"><a class="nav-link" href="/usuario"><i class="fa fa-book"></i>
                 Usuário</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="fa fa-sign-in"></i>
-                Entrar</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'logout' %}"> <iclass="fa fa-sign-out></iclass=> Sair</a></li>
+            {% else %}
             <li class="nav-item"><a class="nav-link" href="{% url 'register' %}"><i class="fa fa-edit"></i>Registrar</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="fa fa-sign-in"></i> Entrar</a></li>
+            {% endif %}
         </ul>
     </nav>
 </header>
