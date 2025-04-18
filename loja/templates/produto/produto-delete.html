@@ -10,12 +10,12 @@
 {% block content %}
 <div id="content">
     <div class="container">
-        <form method="POST" action="/produto/delete"> <!-- Como isso acessa o delete? o action -->
+        <form method="POST" action="{% url 'delete_produto_postback' %}"> <!-- Como isso acessa o delete? o action -->
             {% csrf_token %}
             <div class="row">
-                <input type="hidden" value="{{produto.id}}" name="id" disabled>
+                <input type="hidden" value="{{produto.id}}" name="id" readonly>
                 <h5 for="Produto" class="col-md-2">Produto</h5>
-                <input value="{{produto.produtoo}}" name="Produto" disabled>
+                <input value="{{produto.produtoo}}" name="Produto" readonly>
             </div>
             <div class="row">
                 <div class="col-md-2">

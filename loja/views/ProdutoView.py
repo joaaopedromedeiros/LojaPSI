@@ -44,11 +44,18 @@ def list_produto_view(request, id=None):
 
 def edit_produto_view(request, id=None):
     produtos = Produto.objects.all()
+    fabricantes = Fabricante.objects.all()
+    Categorias = Categoria.objects.all()
+
     if id is not None:
         produtos = produtos.filter(id=id)
     produto = produtos.first()
     print(produto)
-    context = { 'produto': produto }
+    context = { 
+        'produto': produto,
+        'fabricantes': fabricantes,
+        'categorias': Categorias,
+          }
     return render(request, template_name='produto/produto-edit.html', context=context, status=200)
 
 
@@ -60,17 +67,23 @@ def edit_produto_postback(request, id=None):
         destaque = request.POST.get("destaque")
         promocao = request.POST.get("promocao")
         msgPromocao = request.POST.get("msgPromocao")
+        categoria = request.POST.get("CategoriaFk")
+        fabricante = request.POST.get("FabricanteFk")
         print("postback")
         print(id)
         print(produto)
         print(destaque)
         print(promocao)
         print(msgPromocao)
+        print(fabricante)
+        print(categoria)
         try:
             obj_produto = Produto.objects.filter(id=id).first()
             obj_produto.produtoo = produto
             obj_produto.destaque = (destaque is not None)
             obj_produto.promocao = (promocao is not None)
+            obj_produto.fabricante = Fabricante.objects.get(id=fabricante)
+            obj_produto.categoria = Categoria.objects.get(id=categoria)
             if msgPromocao is not None:
                 obj_produto.msgPromocao = msgPromocao
                 obj_produto.save()
@@ -109,6 +122,7 @@ def delete_produto_postback(request, id=None):
         id = request.POST.get("id")
         produto = request.POST.get("Produto")
         print("postback-delete")
+        print(produto)
         print(id)
         try:
             Produto.objects.filter(id=id).delete()
@@ -149,7 +163,7 @@ def create_produto_view(request):
             obj_produto.destaque = (destaque is not None)
             obj_produto.promocao = (promocao is not None)
             obj_produto.fabricante = Fabricante.objects.get(id=fabricante_id)
-            obj_produto.Categoria = Categoria.objects.filter(id=categoria)
+            obj_produto.categoria = Categoria.objects.get(id=categoria)
             if msgPromocao is not None:
                 obj_produto.msgPromocao = msgPromocao
             obj_produto.preco = 0
